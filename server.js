@@ -46,7 +46,7 @@ app.post('/company',token.validateToken, (req, res) => {
         company_api_key: key.generateKey()
     };
     company.createCompany(newCompany).then(company => {
-        res.status(200).json({ ID: company[0] });
+        res.status(200).json({ ID: company[0], company_api_key: req.company[0].company_api_key});
     });
 });
 
@@ -59,7 +59,7 @@ app.get('/location',key.validateCompanyKey, (req, res) => {
 
 app.post('/location',token.validateToken, key.validateCompanyKey, async (req, res) => {
     await locations.createLocation(req.body).then(location => {
-        res.status(200).json({ ID: location[0] });
+        res.status(200).json({ ID: location[0], admin_name: req.user.username, company_api_key: req.company[0].company_api_key });
     });
 });
 
@@ -91,7 +91,7 @@ app.post('/sensor', key.validateCompanyKey, token.validateToken, async (req, res
         sensor_api_key: key.generateKey()
     };
     await sensors.createSensor(newSensor).then(sensor => {
-        res.status(200).json({ ID: sensor[0] });
+        res.status(200).json({ ID: sensor[0], admin_name: req.user.username ,company_api_key: req.company[0].company_api_key});
     });
 });
 
