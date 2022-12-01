@@ -130,7 +130,8 @@ app.post('/sensordata', key.validateSensorKey, async (req, res) => {
     data.forEach(async element => {
         const newSensorData = {
             sensor_id: element.sensor_id,
-            data: element.data,
+            variable_1: element.variable_1,
+            variable_2: element.variable_2,
             X: element.x,
             Y: element.y,
             timestamp: Date.now()
