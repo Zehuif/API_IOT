@@ -16,10 +16,15 @@ function deleteSensor(id) {
     return knex('sensor').where('id', id).del();
 }
 
+function getSensorApiKey(key) {
+    return knex('sensor').select("sensor_api_key").where('sensor_api_key', key);
+}
+
 
 module.exports = {
     createSensor,
     getSensor,
     deleteSensor,
-    updateSensor
+    updateSensor,
+    getSensorApiKey
 };
