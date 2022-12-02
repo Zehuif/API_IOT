@@ -16,10 +16,15 @@ function deleteLocation(id) {
     return knex('location').where('id', id).del();
 }
 
+function getLocationById(id) {
+    return knex('location').select("*").where('id', id);
+}
+
 
 module.exports = {
     createLocation,
     getLocations,
     deleteLocation,
-    updateLocation
+    updateLocation,
+    getLocationById
 };

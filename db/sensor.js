@@ -20,11 +20,16 @@ function getSensorApiKey(key) {
     return knex('sensor').select("sensor_api_key").where('sensor_api_key', key);
 }
 
+function getSensorById(id) {
+    return knex('sensor').select("*").where('id', id);
+}
+
 
 module.exports = {
     createSensor,
     getSensor,
     deleteSensor,
     updateSensor,
-    getSensorApiKey
+    getSensorApiKey,
+    getSensorById
 };

@@ -83,6 +83,12 @@ app.delete('/location/:id', key.validateCompanyKey, async (req, res) => {
     });
 });
 
+app.get('/location/:id', key.validateCompanyKey, async (req, res) => {
+    await locations.getLocationById(req.params.id).then(location => {
+        res.status(200).send(location);
+    });
+});
+
 //sensors
 app.get('/sensor', key.validateCompanyKey, (req, res) => {
     sensors.getSensor().then(sensors => {
@@ -113,6 +119,12 @@ app.put('/sensor/:id', key.validateCompanyKey, async (req, res) => {
 app.delete('/sensor/:id', key.validateCompanyKey, async (req, res) => {
     await sensors.deleteSensor(req.params.id).then(sensor => {
         res.status(200).json({ message: 'Sensor deleted' });
+    });
+});
+
+app.get('/sensor/:id', key.validateCompanyKey, async (req, res) => {
+    await sensors.getSensorById(req.params.id).then(sensor => {
+        res.status(200).send(sensor);
     });
 });
 
@@ -157,16 +169,22 @@ app.delete('/sensordata/:id', key.validateSensorKey, async (req, res) => {
     });
 });
 
-app.post('/sensor_data', key.validateSensorKey, async (req, res) => { 
+app.post('/sensordatapersonalized', key.validateSensorKey, async (req, res) => { 
     query = new Array();
     req.body.sensor_id.forEach(async element => {
         await sensor_data.getSensorDataPersonalized(req.body.from, req.body.to, element).then(data => {
             query.push(data[0]);
             if(query.length == req.body.sensor_id.length){
-                console.log(query);            
+                //console.log(query);            
                 res.status(200).json(query);
             };
         });
+    });
+});
+
+app.get('/sensordata/:id', key.validateSensorKey, async (req, res) => {
+    await sensor_data.getSensorDataById(req.params.id).then(sensor => {
+        res.status(200).send(sensor);
     });
 });
 

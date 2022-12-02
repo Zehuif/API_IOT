@@ -20,10 +20,15 @@ function getSensorDataPersonalized(from, to, sensor_id) {
     return knex('sensor_data').select("*").whereBetween('timestamp', [from, to]).andWhere('sensor_id', sensor_id);
 }
 
+function getSensorDataById(id) {
+    return knex('sensor_data').select("*").where('id', id);
+}
+
 module.exports = {
     createSensorData,
     getSensorData,
     deleteSensorData,
     updateSensorData,
-    getSensorDataPersonalized
+    getSensorDataPersonalized,
+    getSensorDataById
 };
